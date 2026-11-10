@@ -7,7 +7,7 @@ Beta root `pwnstamp root beta`, SHA-256 of the certificate (DER):
 
     7f42e3d2306087abc35ffcaa7cc5e63c7e6dd0c378bbfd41070f38d015234b39
 
-Also published in DNS: `dig +short TXT pwnstamp.org` lists `v=pwnstamp-beta; fp=7f42e3d2306087abc35ffcaa7cc5e63c7e6dd0c378bbfd41070f38d015234b39`.
+Also published in DNS: `dig +short TXT _root.pwnstamp.org` returns `v=pwnstamp-beta; fp=7f42e3d2306087abc35ffcaa7cc5e63c7e6dd0c378bbfd41070f38d015234b39`.
 
 Built by `scripts/build-verifier.sh` of the pwnstamp repository; this repository holds only the
 output, until the verifier moves to the main repository.
