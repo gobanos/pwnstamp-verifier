@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Everything comes from this site; the proof never leaves the page. -->
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>pwnstamp verifier</title>
+<link rel="stylesheet" href="verifier.css">
+<script type="module" src="verifier.js"></script>
+</head>
+<body>
+<main>
+<h1>pwnstamp verifier</h1>
+<p>Paste a pwnstamp proof. It is checked here, in your browser, against the pinned beta root:
+nothing is sent anywhere.</p>
+
+<form id="form">
+  <label for="proof">Proof</label>
+  <textarea id="proof" rows="6" spellcheck="false" autocomplete="off" autocapitalize="off"
+            placeholder="eyJhbGciOiJFZDI1NTE5Ii…"></textarea>
+  <button type="submit" id="verify" disabled>Verify</button>
+</form>
+
+<section id="result" aria-live="polite" hidden>
+  <div id="valid" hidden>
+    <h2 class="ok">Valid proof</h2>
+    <dl>
+      <dt>Pseudo</dt>
+      <dd><span id="sub" class="value"></span><small>Chosen by whoever held the key.</small></dd>
+      <dt>Scenario</dt>
+      <dd><span id="scenario" class="value"></span><small>Tuple <code id="tuple"></code></small></dd>
+      <dt>Level</dt>
+      <dd><span id="level" class="value"></span><small id="level-note"></small></dd>
+      <dt>Access</dt>
+      <dd><span id="window" class="value"></span><small>The machine key existed only in this window:
+        the access happened within it.</small></dd>
+      <dt>Signed at</dt>
+      <dd><span id="iat" class="value"></span><small>Declared by the signer, anywhere within the
+        window.</small></dd>
+      <dt>Machine</dt>
+      <dd><code id="machine"></code></dd>
+    </dl>
+  </div>
+  <div id="invalid" hidden>
+    <h2 class="ko">Invalid proof</h2>
+    <p>Failed check: <strong id="check"></strong></p>
+    <p id="reason"></p>
+  </div>
+</section>
+
+<section id="about">
+  <h2>What a valid proof says</h2>
+  <p>Someone who held the key of a level on a machine of the scenario signed this pseudo, while
+  that machine existed. It does not say who (the pseudo is declarative) or how.</p>
+  <h2>Root</h2>
+  <p>This page pins the beta root, <code>pwnstamp root beta</code>, whose fingerprint
+  (SHA-256 of the certificate) is</p>
+  <p><code id="fingerprint" class="fingerprint"></code></p>
+  <p>It is also published in DNS: <code>dig +short TXT pwnstamp.org</code> lists
+  <code>v=pwnstamp-beta; fp=…</code>.</p>
+</section>
+
+<p id="noscript">This page needs JavaScript and WebAssembly to verify proofs.</p>
+</main>
+</body>
+</html>
